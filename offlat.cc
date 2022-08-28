@@ -3,6 +3,9 @@
 #include <math.h>
 #include <limits.h>
 #include <time.h>
+#include <io.h>
+#include <direct.h>
+#include <string>
 #include "random.h" //contains random number generator
 
 // GLOBAL VARIABLES
@@ -67,6 +70,14 @@ bool fexist(char *filename){
         return true;
     }
     return false;
+}
+//==============================================================
+// Checks if directory exists
+//--------------------------------------------------------------
+void dexist(std::string dirname){
+    if(_access(dirname.c_str(),0)==-1)
+        _mkdir(dirname.c_str());
+    return ;
 }
 //==============================================================
 // finds the time in a string
@@ -955,6 +966,9 @@ int main ()
     printf("Positions initialized.\n");
     initialize();
     printf("Initalized locations.\n");
+
+    printf("Check if dumps folder exists?\n");
+    dexist("dumps");
 
     dump(0,-1);
     printf("Output for first time\n");
