@@ -1006,7 +1006,7 @@ int main ()
 
     // calculate total bending energy once there is no overflow 
     totalBE=0.0;    
-    for(int poly=nf;poly<ns+nf;poly++) 
+    for(int poly=0;poly<ns+nf;poly++) 
         totalBE += BEchain(poly);
     
     printf("\nCollect statistics\n");
