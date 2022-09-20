@@ -17,13 +17,13 @@ int stats=0;
 int save_step=100;
 
 //==============================================================
-// Checks if directory exists
+// Checks if directory exists//linux and windows not same
 //--------------------------------------------------------------
-void dexist(std::string dirname){
-    if(_access(dirname.c_str(),0)==-1)
-        _mkdir(dirname.c_str());
-    return ;
-}
+// void dexist(std::string dirname){
+//     if(_access(dirname.c_str(),0)==-1)
+//         _mkdir(dirname.c_str());
+//     return ;
+// }
 
 void conc(std::vector<std::array<double,3>> &x)
 {
@@ -40,7 +40,7 @@ void conc(std::vector<std::array<double,3>> &x)
 
     if(stats%save_step==0)
     {
-        dexist("dumps");
+        //dexist("dumps");
         std::string fname;
         fname="rho_ave"+std::to_string(stats);
         std::fstream write;
