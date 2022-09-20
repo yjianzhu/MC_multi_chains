@@ -145,7 +145,9 @@ void cal_concertration(std::string readFileName,std::string dataName)
     read.open(dataName,std::ios::in);
     while (read_data(x,read))
     {
-        
+        conc(x);
+        x.clear();
+        number_type.clear();
     }
     
     read.close();
