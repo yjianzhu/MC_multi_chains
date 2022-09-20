@@ -153,3 +153,8 @@ void cal_concertration(std::string readFileName,std::string dataName)
     read.close();
 
 }
+
+int main()
+{
+    cal_concertration("polymer5.txt","dump.lammpstrj");
+}
