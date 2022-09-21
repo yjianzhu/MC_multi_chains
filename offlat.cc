@@ -76,8 +76,8 @@ bool fexist(char *filename){
 // Checks if directory exists
 //--------------------------------------------------------------
 void dexist(std::string dirname){
-    if(_access(dirname.c_str(),0)==-1)
-        _mkdir(dirname.c_str());
+    if(access(dirname.c_str(),0)==-1)
+        mkdir(dirname.c_str(),mode_t S_IRWXG );
     return ;
 }
 //==============================================================
