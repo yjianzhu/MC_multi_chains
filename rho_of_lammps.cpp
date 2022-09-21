@@ -27,7 +27,7 @@ int save_step=100;
 
 void conc(std::vector<std::array<double,3>> &x)
 {
-    int zi,n_type=0;
+    int zi,n_type=1;
     double V=Lx*Ly*Lz;
     double z, ADD=bins/V;
     for(int i=0;i<bins;i++)
@@ -62,7 +62,7 @@ void conc(std::vector<std::array<double,3>> &x)
     {
         z=x[i][2]-std::floor(x[i][2]/Lz)*Lz;
         zi=bins*z/Lz;
-        if(i>number_type[n_type])
+        if(i>=number_type[n_type])
             rhof[zi]+=ADD;
         else
             rhos[zi]+=ADD;
