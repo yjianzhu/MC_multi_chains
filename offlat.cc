@@ -21,7 +21,7 @@ enum { npoly = nf+ns };
 // position vectors for beads
 double xob[nbead], yob[nbead], zob[nbead];
 
-double Lx = 25, Ly = 8, Lz = 8; // dimensions of simulation box
+double Lx = 32, Ly = 20, Lz = 20; // dimensions of simulation box
 double V = Lx*Ly*Lz; // volume of simulation box
 bool wall=true; // if true, walls are placed at x=0 and x=Lx
 double kappa = 1.0; // bending modulus of stiff polymers
@@ -36,7 +36,7 @@ const long long int neval = ((long long int)neval_pb) * ((long long int)nbead);
 const long long int nskip = ((long long int)nskip_pb) * ((long long int)nbead);
 
 // voxel array
-const int Lxi=50, Lyi=16, Lzi=16; // ideally, Lxi=2*Lx, etc
+const int Lxi=64, Lyi=40, Lzi=40; // ideally, Lxi=2*Lx, etc
 double LtoLat[3]; // ratio of Lxi and Lx, etc
 int beadhere[Lxi][Lyi][Lzi]; // table of occupied voxels
 bool beadhere_of[Lxi][Lyi][Lzi]; // table of voxel overflows (used during equilibration)
