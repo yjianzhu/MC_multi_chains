@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <string>
+#include <fstream>
 #include "random.h" //contains random number generator
 
 // GLOBAL VARIABLES
@@ -744,6 +745,87 @@ int swap_chain (){
     
     return 1;
 }
+
+
+
+void dump_lammps_read_file(int tt, double append=0)
+{
+    std::fstream write;
+    write.open("dumps/lammps"+std::to_string(tt),std::ios::out);
+    write<<"Description:line\n";
+    write<<"\t"<<nbead<<' '<<"atoms\n";
+    write<<'\t'<<(Nf-1)*nf+(Ns-1)*ns<<" bonds\n";
+    write<<'\t'<<(Nf-2)*nf+(Ns-2)*ns<<" bonds\n";
+    write<<std::endl;
+    write<<"\t2\t atom types\n";
+    write<<"\t1\t bond types\n";
+    write<<"\t1\t angle types\n";
+    write<<std::endl;
+    write<<"   0.0000\t"<<Ly<<"\txlo xhi"<<std::endl;
+    write<<"   0.0000\t"<<Lz<<"\tylo yhi"<<std::endl;
+    write<<"   0.0000\t"<<Lx<<"\tzlo zhi"<<std::endl;
+    write<<std::endl;
+    write<<"Masses\n\n";
+    write<<"\t1   1\n\t2    1\n\n";
+    write<<"Atoms\n\n";
+
+    //main output 输出原子坐标
+    int mol,typee;
+    double x,y,z;
+    for(int i=0;i<nbead;i++)
+    {
+        mol=parent[i];
+        typee = type[mol];
+        x = xob[i]-floor(xob[i]/Lx)*Lx;
+        y = yob[i]-floor(yob[i]/Ly)*Ly;
+        z = zob[i]-floor(zob[i]/Lz)*Lz;
+        write<<i+1<<'\t'<<mol+1<<'\t'<<typee+1<<'\t'<<y<<'\t'<<z<<'\t'<<x<<std::endl;
+    }
+    //输出bonds
+    write<<"\nBonds\n\n";
+    for(int i=0,j=1;i<(Nf-1)*nf+(Ns-1)*ns;i++)
+    {
+        write<<i+1<<'\t1\t'<<j<<'\t'<<j+1<<std::endl;
+        if(j<=(Nf)*nf)
+        {
+            if((j+1)%Nf==0)
+                j+=2;
+            else
+                j++;
+        }
+        else
+        {
+            if((j-Nf*nf+1)%Ns==0)
+                j+=2;
+            else
+                j++;
+        }
+    }
+    write<<"\nAngles\n\n";
+    long number_of_angles=(Nf-2)*nf+(Ns-2)*ns;
+    for(int i=0,j=1;i<number_of_angles;i++)
+    {
+        write<<i+1<<'\t1\t'<<j<<'\t'<<j+1<<'\t'<<j+2<<std::endl;
+
+        if(j<=Nf*nf)
+        {
+            if((j+2)%Nf==0)
+                j+=3;
+            else
+                j++;
+        }
+        else
+        {
+            if((j-Nf*nf+2)%Ns==0)
+                j+=3;
+            else
+                j++;
+        }
+    }
+
+    write.close();
+}
+
 //==============================================================
 // output to dump file, setup for ovito
 //--------------------------------------------------------------
@@ -993,6 +1075,7 @@ int main ()
                         
         if(i%nskip==0) {
             dump(0,int(i/nbead));
+            dump_lammps_read_file(int(i/nbead));
             nover=0;
             for(int ii=0;ii<Lxi;ii++) for(int jj=0;jj<Lyi;jj++) for(int kk=0;kk<Lzi;kk++) 
                 if(beadhere_of[ii][jj][kk]) nover++;
