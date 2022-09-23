@@ -755,7 +755,7 @@ void dump_lammps_read_file(int tt, double append=0)
     write<<"Description:line\n";
     write<<"\t"<<nbead<<' '<<"atoms\n";
     write<<'\t'<<(Nf-1)*nf+(Ns-1)*ns<<" bonds\n";
-    write<<'\t'<<(Nf-2)*nf+(Ns-2)*ns<<" bonds\n";
+    write<<'\t'<<(Nf-2)*nf+(Ns-2)*ns<<" angles\n";
     write<<std::endl;
     write<<"\t 2 \t atom types\n";
     write<<"\t 1 \t bond types\n";
@@ -1106,6 +1106,7 @@ int main ()
 
         if(i%nskip==0) {
             dump(1,int((i+nrelax)/nbead));
+            dump_lammps_read_file(int(i+nrelax/nbead));
             out_positions();
             tistr();
             printf("j=%ld/%u, c:%lg s:%lg r:%lg sw:%lg (Time: %s)\n",
