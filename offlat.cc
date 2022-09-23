@@ -757,16 +757,16 @@ void dump_lammps_read_file(int tt, double append=0)
     write<<'\t'<<(Nf-1)*nf+(Ns-1)*ns<<" bonds\n";
     write<<'\t'<<(Nf-2)*nf+(Ns-2)*ns<<" bonds\n";
     write<<std::endl;
-    write<<"\t2\t atom types\n";
-    write<<"\t1\t bond types\n";
-    write<<"\t1\t angle types\n";
+    write<<"\t 2 \t atom types\n";
+    write<<"\t 1 \t bond types\n";
+    write<<"\t 1 \t angle types\n";
     write<<std::endl;
     write<<"   0.0000\t"<<Ly<<"\txlo xhi"<<std::endl;
     write<<"   0.0000\t"<<Lz<<"\tylo yhi"<<std::endl;
     write<<"   0.0000\t"<<Lx<<"\tzlo zhi"<<std::endl;
     write<<std::endl;
     write<<"Masses\n\n";
-    write<<"\t1   1\n\t2    1\n\n";
+    write<<"\t 1   1\n\t 2    1\n\n";
     write<<"Atoms\n\n";
 
     //main output 输出原子坐标
@@ -785,7 +785,7 @@ void dump_lammps_read_file(int tt, double append=0)
     write<<"\nBonds\n\n";
     for(int i=0,j=1;i<(Nf-1)*nf+(Ns-1)*ns;i++)
     {
-        write<<i+1<<'\t1\t'<<j<<'\t'<<j+1<<std::endl;
+        write<<i+1<<"\t1\t"<<j<<'\t'<<j+1<<std::endl;
         if(j<=(Nf)*nf)
         {
             if((j+1)%Nf==0)
@@ -805,7 +805,7 @@ void dump_lammps_read_file(int tt, double append=0)
     long number_of_angles=(Nf-2)*nf+(Ns-2)*ns;
     for(int i=0,j=1;i<number_of_angles;i++)
     {
-        write<<i+1<<'\t1\t'<<j<<'\t'<<j+1<<'\t'<<j+2<<std::endl;
+        write<<i+1<<"\t1\t"<<j<<'\t'<<j+1<<'\t'<<j+2<<std::endl;
 
         if(j<=Nf*nf)
         {
