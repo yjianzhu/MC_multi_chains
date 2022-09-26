@@ -155,7 +155,8 @@ void cal_concertration(std::string readFileName,std::string dataName)
 
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-    cal_concertration("polymer5.txt","dump.lammpstrj");
+    std::string readfile=argv[argc-1];
+    cal_concertration(readfile,"dump.lammpstrj");
 }
