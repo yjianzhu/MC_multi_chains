@@ -15,6 +15,7 @@ const int bins=1000;
 double rhos[bins],rhof[bins],rhosav[bins]{0},rhofav[bins]{0}; // short and long 
 int stats=0;
 int save_step=1000;
+int save_time=1;
 
 //==============================================================
 // Checks if directory exists//linux and windows not same
@@ -38,11 +39,26 @@ void conc(std::vector<std::array<double,3>> &x)
 
     stats ++;
 
-    if(stats==save_step+1)
+    for(int i=0;i<x.size();i++)
+    {
+        z=x[i][2]-std::floor(x[i][2]/Lz)*Lz;
+        zi=bins*z/Lz;
+        if(i>=number_type[n_type])
+            rhof[zi]+=ADD;
+        else
+            rhos[zi]+=ADD;
+    }
+    for(int i=0;i<bins;i++){
+        rhofav[i] += (rhof[i]-rhofav[i])/(1.0*stats);
+        rhosav[i] += (rhos[i]-rhosav[i])/(1.0*stats);
+    }
+
+    if(stats==save_step)
     {
         //dexist("dumps");
         std::string fname;
-        fname="rho_ave"+std::to_string(stats);
+        fname="rho_ave"+std::to_string(stats*save_time);
+        save_time++;
         std::fstream write;
         write.open(fname,std::ios::out);
         for(int i=0;i<bins;i++){
@@ -56,21 +72,6 @@ void conc(std::vector<std::array<double,3>> &x)
             rhosav[i]=0;
             rhofav[i]=0;
         }
-        stats=1;
-    }
-
-    for(int i=0;i<x.size();i++)
-    {
-        z=x[i][2]-std::floor(x[i][2]/Lz)*Lz;
-        zi=bins*z/Lz;
-        if(i>=number_type[n_type])
-            rhof[zi]+=ADD;
-        else
-            rhos[zi]+=ADD;
-    }
-    for(int i=0;i<bins;i++){
-        rhofav[i] += (rhof[i]-rhofav[i])/(1.0*stats);
-        rhosav[i] += (rhos[i]-rhosav[i])/(1.0*stats);
     }
 }
 
