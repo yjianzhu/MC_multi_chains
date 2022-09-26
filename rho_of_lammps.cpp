@@ -38,7 +38,7 @@ void conc(std::vector<std::array<double,3>> &x)
 
     stats ++;
 
-    if(stats%save_step==0)
+    if(stats==save_step+1)
     {
         //dexist("dumps");
         std::string fname;
@@ -56,7 +56,7 @@ void conc(std::vector<std::array<double,3>> &x)
             rhosav[i]=0;
             rhofav[i]=0;
         }
-        stats=0;
+        stats=1;
     }
 
     for(int i=0;i<x.size();i++)
