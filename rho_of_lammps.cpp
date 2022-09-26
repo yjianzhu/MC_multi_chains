@@ -56,6 +56,7 @@ void conc(std::vector<std::array<double,3>> &x)
             rhosav[i]=0;
             rhofav[i]=0;
         }
+        stats=0;
     }
 
     for(int i=0;i<x.size();i++)
