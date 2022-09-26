@@ -5,8 +5,8 @@
 #include<vector>
 #include<array>
 #include<cmath>
-#include <io.h>
-#include <direct.h>
+// #include <io.h>
+// #include <direct.h>
 
 int N;
 double Lx,Ly,Lz;
@@ -14,7 +14,7 @@ std::vector<int> number_type;
 const int bins=1000;
 double rhos[bins],rhof[bins],rhosav[bins]{0},rhofav[bins]{0}; // short and long 
 int stats=0;
-int save_step=100;
+int save_step=1000;
 
 //==============================================================
 // Checks if directory exists//linux and windows not same
