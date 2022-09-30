@@ -62,7 +62,7 @@ void conc(std::vector<std::array<double,3>> &x)
         std::fstream write;
         write.open(fname,std::ios::out);
         for(int i=0;i<bins;i++){
-            double z = (i+0.5)*Lx/bins;
+            double z = (i+0.5)*Lz/bins;
             write<<z<<'\t'<<rhofav[i]<<'\t'<<rhosav[i]<<'\t'<<rhofav[i]+rhosav[i]<<std::endl;
         }
         write.close();
