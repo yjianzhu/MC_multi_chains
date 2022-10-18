@@ -11,7 +11,7 @@
 int N;
 double Lx,Ly,Lz;
 std::vector<int> number_type;
-const int bins=1000;
+const int bins=2000;
 double rhos[bins],rhof[bins],rhosav[bins]{0},rhofav[bins]{0}; // short and long 
 int stats=0;
 int save_step=1000;
@@ -104,11 +104,12 @@ int  get_para(std::fstream &read)
 //设计成这样不需要new和delete
 int read_data(std::vector<std::array<double,3>> &x,std::fstream &read)
 {
-    int NB,atom_type,old_atom_type=0;
+    int NB=0,atom_type,old_atom_type=0;
     
     std::string  aline;
 
-    read>>NB;
+    if(!(read>>NB))
+        std::cout<<"read complete!"<<std::endl;
     if(NB!=N)
     {
         std::cout<<"atom number isn't same!"<<std::endl;
