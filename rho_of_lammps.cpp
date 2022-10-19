@@ -14,7 +14,7 @@ std::vector<int> number_type;
 const int bins=2000;
 double rhos[bins],rhof[bins],rhosav[bins]{0},rhofav[bins]{0}; // short and long 
 int stats=0;
-int save_step=1000;
+int save_step=2000;
 int save_time=1;
 
 //==============================================================
@@ -109,7 +109,10 @@ int read_data(std::vector<std::array<double,3>> &x,std::fstream &read)
     std::string  aline;
 
     if(!(read>>NB))
+    {
         std::cout<<"read complete!"<<std::endl;
+        return 0;
+    }
     if(NB!=N)
     {
         std::cout<<"atom number isn't same!"<<std::endl;
